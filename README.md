@@ -1,9 +1,8 @@
 # jaeger-bomb
 
-A simple app to create Jaeger spans with [jaeger-client-go](https://github.com/jaegertracing/jaeger-client-go)
+A simple app to create Jaeger spans with [jaeger-client-go](https://github.com/jaegertracing/jaeger-client-go) in your kubernetes cluster to test your jaeger install is all hunky-dory.
 
-This app will create a nest of spans every few seconds - it is useful for testing your entire Jaeger setup.
-
+This app will create a nest of spans every few seconds it's not very exciting.
 
 ### How it works 👩🏻‍💻
 
