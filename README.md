@@ -50,13 +50,14 @@ helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:
 
 This will setup a tiny Jaeger production like instance locally using the Jaeger helm chart.
 
-![](images/3.png)
-
 #### Requirements
 - helm
 - docker
 - kind
 - kubectl
+
+
+![](images/3.png)
 
 - `make up`
 - `make jaeger-install`
