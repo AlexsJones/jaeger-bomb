@@ -1,4 +1,4 @@
-# go-jaeger
+# jaeger-bomb
 
 A simple app to create Jaeger spans with [jaeger-client-go](https://github.com/jaegertracing/jaeger-client-go)
 
