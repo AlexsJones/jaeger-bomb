@@ -21,6 +21,7 @@ func emitTrace() {
 	tracer := opentracing.GlobalTracer()
 	span := tracer.StartSpan("jaeger-bomb-parent-trace")
 	defer span.Finish()
+
 	childCount := rand.Intn(15) // n will be between 0 and 5
 
 	lastParent := span.Context()
