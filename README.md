@@ -37,6 +37,10 @@ Guts of the code... spits out a bunch of spans over and over.
 
 ### Set this example up in an existing cluster
 
+#### Requirements
+- helm
+- kubectl
+
 ```
 cd helm
 helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:9999"
@@ -47,6 +51,12 @@ helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:
 This will setup a tiny Jaeger production like instance locally using the Jaeger helm chart.
 
 ![](images/3.png)
+
+#### Requirements
+- helm
+- docker
+- kind
+- kubectl
 
 - `make up`
 - `make jaeger-install`
