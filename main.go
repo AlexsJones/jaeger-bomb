@@ -35,8 +35,8 @@ func emitTrace() {
 			fmt.Sprintf("child-%d",i),
 			opentracing.ChildOf(lastParent),
 		)
-		sleepTime := rand.Intn(5000)
-		// Delay in the child spans
+		sleepTime := rand.Intn(1000)
+		// Arbitrary delay
 		time.Sleep(time.Duration(sleepTime) * time.Millisecond)
 
 		url := "http://jaeger-bomb-server:8082/publish"
@@ -65,6 +65,11 @@ func serverMode() {
 
 		spanCtx, _ := tracer.Extract(opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(r.Header))
 		serverSpan := tracer.StartSpan("server", ext.RPCServerOption(spanCtx))
+
+		sleepTime := rand.Intn(5000)
+		// Arbitrary delay
+		time.Sleep(time.Duration(sleepTime) * time.Millisecond)
+
 		defer serverSpan.Finish()
 	})
 	log.Fatal(http.ListenAndServe(":8082", nil))
