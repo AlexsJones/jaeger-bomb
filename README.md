@@ -1,6 +1,6 @@
-# go-jaeger
+# jaeger-bomb
 
-A simple app to create Jaeger spans with [jaeger-client-go](https://github.com/jaegertracing/jaeger-client-go)
+A simple app to create Jaeger spans with [jaeger-client-go](https://github.com/jaegertracing/jaeger-client-go) in your kubernetes cluster to test your jaeger install is all hunky-dory.
 
 This app will create a nest of spans every few seconds and send them to a server running on another pod.
 
@@ -52,6 +52,10 @@ Guts of the code... spits out a bunch of spans over and over.
 
 ### Set this example up in an existing cluster
 
+#### Requirements
+- helm
+- kubectl
+
 ```
 cd helm
 helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:9999"
@@ -60,6 +64,13 @@ helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:
 ### Setup the toy example locally 🚀
 
 This will setup a tiny Jaeger production like instance locally using the Jaeger helm chart.
+
+#### Requirements
+- helm
+- docker
+- kind
+- kubectl
+
 
 ![](images/3.png)
 
