@@ -9,7 +9,7 @@ jaeger:
     connectionstring: "--reporter.grpc.host-port=jaeger-collector.tracing.svc.cluster.local:14250"
 image:
   repository: tibbar/jaeger-bomb:0.0.1
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""

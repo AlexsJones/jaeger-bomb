@@ -8,9 +8,7 @@ jaeger-install:
 	helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 	helm install jaeger jaegertracing/jaeger -n tracing
 jaeger-bomb-install:
-	cd helm
-	helm install jaeger-bomb .
-	cd ../
+	cd helm && helm install jaeger-bomb . && cd ../
 docker-build:
 	docker build . -t tibbar/jaeger-bomb:$(VERSION)
 docker-push:

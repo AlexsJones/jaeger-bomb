@@ -2,8 +2,7 @@
 
 A simple app to create Jaeger spans with [jaeger-client-go](https://github.com/jaegertracing/jaeger-client-go)
 
-This app will create a nest of spans every few seconds - it is useful for testing your entire Jaeger setup.
-
+This app will create a nest of spans every few seconds and send them to a server running on another pod.
 
 ### How it works 👩🏻‍💻
 
@@ -11,10 +10,15 @@ Guts of the code... spits out a bunch of spans over and over.
 
  
 ```go
+	tracer := opentracing.GlobalTracer()
+	span := tracer.StartSpan("jaeger-bomb-parent-trace")
+	defer span.Finish()
+
+	childCount := rand.Intn(15) // n will be between 0 and 5
 
 	lastParent := span.Context()
 	for i :=0; i < childCount; i++ {
-		// Create a Child Span. Note that we're using the ChildOf option. 
+		// Create a Child Span. Note that we're using the ChildOf option.
 		childSpan := tracer.StartSpan(
 			fmt.Sprintf("child-%d",i),
 			opentracing.ChildOf(lastParent),
@@ -23,11 +27,22 @@ Guts of the code... spits out a bunch of spans over and over.
 		// Delay in the child spans
 		time.Sleep(time.Duration(sleepTime) * time.Millisecond)
 
+		url := "http://jaeger-bomb-server:8082/publish"
+		req, _ := http.NewRequest("GET", url, nil)
+		// Set some tags on the clientSpan to annotate that it's the client span. The additional HTTP tags are useful for debugging purposes.
+		ext.SpanKindRPCClient.Set(childSpan)
+		ext.HTTPUrl.Set(childSpan, url)
+		ext.HTTPMethod.Set(childSpan, "GET")
+
+		// Inject the client span context into the headers
+		tracer.Inject(childSpan.Context(), opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(req.Header))
+
+		resp, _ := http.DefaultClient.Do(req)
+		if resp.StatusCode != 200 {
+			jLogger.Error(resp.Status)
+		}
 		defer childSpan.Finish()
 		lastParent = childSpan.Context()
-	}
-	jLogger.Infof("Generated %d child spans",childCount)
-}
 ```
 
 ## How to use this repository 💅
