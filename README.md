@@ -4,10 +4,17 @@ A simple app to create Jaeger spans with [jaeger-client-go](https://github.com/j
 
 This app will create a nest of spans every few seconds and send them to a server running on another pod.
 
+
+- Have Jaeger running in Kubernetes.
+- Point Jaegerbomb at your collectors.
+- It will create some spans.
+
 ```
 cd helm
 helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:9999"
 ```
+
+More detail below.
 
 ## How to use this repository 💅
 
