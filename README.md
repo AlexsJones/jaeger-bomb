@@ -14,7 +14,7 @@ cd helm
 helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:9999"
 ```
 
-I have build `tibbar/jaeger-bomb:0.0.1` but if you want to customise it just build your own image.
+I have built `tibbar/jaeger-bomb:0.0.1` but if you want to customise it just build/push your own image.
   
 More detail below.
 
