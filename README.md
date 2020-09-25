@@ -14,6 +14,8 @@ cd helm
 helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:9999"
 ```
 
+I have build `tibbar/jaeger-bomb:0.0.1` but if you want to customise it just build your own image.
+  
 More detail below.
 
 ## How to use this repository 💅
@@ -86,6 +88,8 @@ Guts of the code... spits out a bunch of spans over and over.
 ```
 
 ![](images/3.png)
+
+To get up and running on a toy setup locally...
 
 - `make up`
 - `make jaeger-install`
