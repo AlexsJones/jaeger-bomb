@@ -4,6 +4,39 @@ A simple app to create Jaeger spans with [jaeger-client-go](https://github.com/j
 
 This app will create a nest of spans every few seconds and send them to a server running on another pod.
 
+```
+cd helm
+helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:9999"
+```
+
+## How to use this repository 💅
+
+- This repository contains the golang code for creating the spans, the Dockerfile and the helm chart to get it into kubernetes.
+- You may find you want to tweak the helm configuration to get it to work for your infrastructure.
+
+### Set this example up in an existing cluster
+
+#### Requirements
+- helm
+- kubectl
+
+```
+cd helm
+helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:9999"
+```
+
+### Setup the toy example locally 🚀
+
+This will setup a tiny Jaeger production like instance locally using the Jaeger helm chart.
+
+#### Requirements
+- helm
+- docker
+- kind
+- kubectl
+
+
+
 ### How it works 👩🏻‍💻
 
 Guts of the code... spits out a bunch of spans over and over.
@@ -44,33 +77,6 @@ Guts of the code... spits out a bunch of spans over and over.
 		defer childSpan.Finish()
 		lastParent = childSpan.Context()
 ```
-
-## How to use this repository 💅
-
-- This repository contains the golang code for creating the spans, the Dockerfile and the helm chart to get it into kubernetes.
-- You may find you want to tweak the helm configuration to get it to work for your infrastructure.
-
-### Set this example up in an existing cluster
-
-#### Requirements
-- helm
-- kubectl
-
-```
-cd helm
-helm install jaeger-bomb . --set=jaeger.agent.connectionstring="mycollector.svc:9999"
-```
-
-### Setup the toy example locally 🚀
-
-This will setup a tiny Jaeger production like instance locally using the Jaeger helm chart.
-
-#### Requirements
-- helm
-- docker
-- kind
-- kubectl
-
 
 ![](images/3.png)
 
